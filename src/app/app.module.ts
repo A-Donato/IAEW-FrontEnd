@@ -13,12 +13,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { CarTableComponent } from './home/car-table/car-table.component';
 import { HttpRestService } from './sheared/HttpRestService';
+import {MatSelectModule} from '@angular/material/select';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CarTableComponent
+    CarTableComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { HttpRestService } from './sheared/HttpRestService';
     MatIconModule,
     MatButtonModule,
     MatTableModule,
+    MatSelectModule,
     HttpClientModule
   ],
   providers: [HttpRestService],

@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getIdCiudad(nombre){
+  /*getIdCiudad(nombre){
     switch(this.ciudad.toUpperCase()) { 
       case constant_expr1: { 
          //statements; 
@@ -32,5 +32,5 @@ export class HomeComponent implements OnInit {
          break; 
       } 
    }
-  }
+  }*/
 }
