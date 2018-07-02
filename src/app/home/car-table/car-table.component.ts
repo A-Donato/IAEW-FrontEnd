@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-car-table',
@@ -7,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarTableComponent implements OnInit {
 
+  @Input() vehiculosSoap: any;
+
   displayedColumns: string[] = ['Id', 'Marca', 'Modelo', 'N° puertas',
   , 'Aire Acondicionado', 'Dirección Asistida', 'Tipo Cambio', 'Precio x Dia', 'Puntaje', 'Disponibles'];
   constructor() { }
-  dataSource = 'lala';
+  dataSource = this.vehiculosSoap;
   ngOnInit() {
   }
 

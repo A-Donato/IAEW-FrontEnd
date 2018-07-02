@@ -14,14 +14,13 @@ import { MatTableModule } from '@angular/material/table';
 import { CarTableComponent } from './home/car-table/car-table.component';
 import { HttpRestService } from './sheared/HttpRestService';
 import {MatSelectModule} from '@angular/material/select';
-import { LoginComponent } from './login/login.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CarTableComponent,
-    LoginComponent
+    CarTableComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +33,8 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     MatTableModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule
   ],
   providers: [HttpRestService],
   bootstrap: [AppComponent]
