@@ -1,66 +1,73 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="text-align: center;">
 
   <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+        The actual rendered columns are set as a property on the row definition" -->
 
-
-  <!-- No defino Id ciudad -->
-
-  <!-- Tiene Sentido? -->
-  <ng-container matColumnDef="Id">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th style="text-align: center;" mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Marca">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.Marca}} </td>
+  <!-- Name Column -->
+  <ng-container matColumnDef="modelo">
+    <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Modelo </th>
+    <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Modelo">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="marca">
+    <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Marca </th>
+    <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="N° puertas">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="cantidadPuertas">
+    <th  style="text-align: center;"mat-header-cell *matHeaderCellDef> N° Puertas </th>
+    <td mat-cell *matCellDef="let element"> {{element.cantidadPuertas}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Aire Acondicionado">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="precioDia">
+    <th  style="text-align: center;"mat-header-cell *matHeaderCellDef> Precios/Dia </th>
+    <td mat-cell *matCellDef="let element"> {{element.precioPorDia}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Dirección Asistida">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="aireAcon">
+    <th  style="text-align: center;"mat-header-cell *matHeaderCellDef> Aire Acondicionado </th>
+    <td mat-cell *matCellDef="let element"> {{element.tieneAireAcon}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Tipo de Cambio">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="dirAsist">
+    <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Direccion Asistida </th>
+    <td mat-cell *matCellDef="let element"> {{element.tieneDireccion}} </td>
   </ng-container>
 
-
-  <ng-container matColumnDef="Precio x Dia">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="tipoCambio">
+    <th  style="text-align: center;" mat-header-cell *matHeaderCellDef> Tipo Cambio </th>
+    <td mat-cell *matCellDef="let element"> {{element.tipoCambio}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Puntaje">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="disponibles">
+    <th  style="text-align: center;"mat-header-cell *matHeaderCellDef> Disponibles </th>
+    <td mat-cell *matCellDef="let element"> {{element.cantidadDisponible}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Disponibles">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="reservar">
+    <th  style="text-align: center;"mat-header-cell *matHeaderCellDef> -Reservar- </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="book(element)">
+        <mat-icon>book</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
-
-  <!-- Vehiculo ciudad ID????? -->
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr  mat-row *matRowDef="let row; columns: displayedColumns;">
+  </tr>
 </table>

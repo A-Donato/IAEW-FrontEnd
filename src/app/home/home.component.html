@@ -4,40 +4,42 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-form-field>
-  <mat-select placeholder="Select Country" [(ngModel)]="selectedCountryID">
-    <mat-option ((onSelectionChange)="onSelectCountry($event)" (click)="onSelectCountry()" *ngFor="let country of countriesSoap" [value]="country.value"> 
-      {{country.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<div id="search" >
 
-<mat-form-field>
-  <mat-select placeholder="Select City" [(ngModel)]="selectedCityID">
-    <mat-option *ngFor="let city of citiesSoap" [value]="city.value"> 
-      {{city.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Seleccionar Pais">
+      <mat-option (onSelectionChange)="onSelectCountry($event, country.id)" *ngFor="let country of countriesSoap" [value]="country.id">
+        {{country.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-select placeholder="Seleccionar Ciudad" [(ngModel)]="selectedCityID">
+      <mat-option *ngFor="let city of citiesSoap" [value]="city.id">
+        {{city.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <!-- Hasta aca bien  -->
+  
+  <mat-form-field >
+    <input matInput [(ngModel)]='pickerFrom' [min]="minDateFrom" [max]="maxDate" [matDatepicker]="picker1" placeholder="Inicio de Periodo">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]='pickerTo' [min]="pickerFrom" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fin de Periodo">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+  
+  <button mat-icon-button (click)="search()">
+    <mat-icon>search</mat-icon>
+  </button>
 
-  <button mat-icon-button (click)="search()" ><mat-icon>search</mat-icon></button>
 </div>
-
-<mat-form-field id="dateFrom">
-  <input matInput [min]="minDateFrom" [max]="maxDateFrom" [matDatepicker]="pickerFrom" placeholder="Choose a date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-<mat-form-field id="dateTo">
-  <input matInput [min]="pickerFrom" [max]="maxDate" [matDatepicker]="pickerTo" placeholder="Choose a date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-
 <app-car-table [vehiculosSoap] = 'vehiculosSoap' ></app-car-table>
-  
-  
-
-
+  <!-- Tiene Sentido? 
+  -->

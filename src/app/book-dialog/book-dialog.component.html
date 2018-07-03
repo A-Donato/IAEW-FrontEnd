@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Por favor, complete los siguientes datos</h1>
+<div mat-dialog-content>
+  <p>Marcos puto (?)</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Ke naii</button>
+  <button mat-button [mat-dialog-close]="data.apellidoYNombreCliente" cdkFocusInitial>Ok</button>
+</div>

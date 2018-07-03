@@ -1,3 +1,8 @@
+import '../polyfills';
+
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,12 +20,16 @@ import { CarTableComponent } from './home/car-table/car-table.component';
 import { HttpRestService } from './sheared/HttpRestService';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { BookDialogComponent } from './book-dialog/book-dialog.component';
+import {MatDialogModule} from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CarTableComponent
+    CarTableComponent,
+    BookDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +43,14 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatTableModule,
     MatSelectModule,
     HttpClientModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CdkTableModule,
+    CdkTreeModule,
+    MatDialogModule
   ],
   providers: [HttpRestService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [BookDialogComponent]
 })
 export class AppModule { }

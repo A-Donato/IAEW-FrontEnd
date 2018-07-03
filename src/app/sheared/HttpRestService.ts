@@ -1,31 +1,39 @@
-import { Injectable, OnInit } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { Country } from './country';
+import { City } from './city';
+import { Car } from './car';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
+};
 @Injectable()
 export class HttpRestService implements OnInit {
-  protected url = "http://localhost:59716/api/";
+  protected url = 'http://localhost:59716/api/';
 
-  constructor(private http: HttpClient, public sanitizer: DomSanitizer) {}
-  ngOnInit() {}
+  constructor(private http: HttpClient, public sanitizer: DomSanitizer) { }
+  ngOnInit() { }
 
-  getCountries() {
-    const new_url = this.url + "paises/";
-    return this.http.get<any[]>(new_url).pipe(map(data => data));
+  getCountries(): Observable<Country[]> {
+    const response = this.http.get<Country[]>(this.url + 'paises/')
+    .pipe();
+    return response;
   }
 
   getCities(idPais) {
-    const new_url = this.url + "paises/" + idPais + "/ciudades";
-    return this.http.get<any[]>(new_url).pipe(map(data => data));
+    const response = this.http.get<City[]>(this.url + 'paises/' + idPais + '/ciudades/')
+    .pipe();
+    return response;
   }
 
-  // Rest Items Service: Read all REST Items
-  getVehiculosCiudad(idCity, dateFrom, dateTo) {
-    let params = new HttpParams();
-    params = params.append("var1", dateFrom);
-    params = params.append("var2", dateTo);
-    const new_url = this.url + "vehiculos/" + idCity;
-    return this.http.get<any[]>(new_url, {params: params}).pipe(map(data => data)); //deberia andar
+  getVehiculosCiudad(idCity, dateFrom: Date, dateTo: Date) {
+    const response = this.http.get<Car[]>(this.url + 'vehiculos/' + idCity + '/' +
+     dateFrom + '/' + dateTo).pipe();
+
+    return response;
   }
 }

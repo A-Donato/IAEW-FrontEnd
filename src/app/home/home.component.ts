@@ -1,43 +1,46 @@
-import { Component, OnInit } from "@angular/core";
-import { HttpRestService } from "./../sheared/HttpRestService";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpRestService } from './../sheared/HttpRestService';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Country } from '../sheared/country';
+import { City } from '../sheared/city';
+import { MatOptionSelectionChange } from '@angular/material';
+import { Car } from '../sheared/car';
+import { CarTableComponent } from './car-table/car-table.component';
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  selectedCountryID = 0;
+  selectedCountryID: number;
   selectedCityID = 0;
-  countriesSoap: any; //Fijate como viene el JSON, para asignar los valores al HTML
-  citiesSoap: any; //Fijate como viene el JSON, para asignar los valores al HTML
-  vehiculosSoap: any; //Fijate como viene el JSON, para asignar los valores al HTML
+  countriesSoap: Country[]; // Fijate como viene el JSON, para asignar los valores al HTML
+  citiesSoap: City[]; // Fijate como viene el JSON, para asignar los valores al HTML
+  vehiculosSoap: Car[] = [] ; // Fijate como viene el JSON, para asignar los valores al HTML
 
-  minDateFrom = new Date(2000, 0, 1);
+  minDateFrom: Date;
   maxDateFrom = new Date(2020, 0, 1);
-  pickerFrom: Date;
+  pickerFrom = this.minDateFrom;
   pickerTo: Date;
-  constructor(private restService: HttpRestService) {}
+  constructor(private restService: HttpRestService) { }
+  @ViewChild(CarTableComponent) child: CarTableComponent;
+
   ngOnInit() {
     this.getCountries();
   }
-
-  search() {
-
-  }
-
   getCountries(): void {
-    this.restService.getCountries().subscribe(countriesSoap => {
-      this.countriesSoap = countriesSoap;
-      console.log(this.countriesSoap);
-    });
+    this.restService.getCountries()
+      .subscribe(countriesSoap => this.countriesSoap = countriesSoap);
   }
 
   getCities(): void {
-    this.restService.getCities(this.selectedCountryID).subscribe(citiesSoap => {
-      this.citiesSoap = citiesSoap;
-      console.log(this.citiesSoap);
-    });
+    this.restService.getCities(this.selectedCountryID).
+      subscribe(citiesSoap => this.citiesSoap = citiesSoap);
+  }
+
+  search() {
+    this.getVehiculos();
+    this.child.refresh();
   }
 
   getVehiculos(): void {
@@ -47,24 +50,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-
-  
-
-  /*getIdCiudad(nombre){
-    switch(this.ciudad.toUpperCase()) { 
-      case constant_expr1: { 
-         //statements; 
-         break; 
-      } 
-      case constant_expr2: { 
-         //statements; 
-         break; 
-      } 
-      default: { 
-         //statements; 
-         break; 
-      } 
-   }
-  }*/
+  onSelectCountry(event: MatOptionSelectionChange, id) {
+    if (event.source.selected) {
+      this.selectedCountryID = id;
+      this.getCities();
+    }
+  }
 }

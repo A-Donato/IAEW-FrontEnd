@@ -1,6 +1,9 @@
 #input-city{
     width: 200px;
 }
-#div-search{
-    margin-left: 5px;
+#search{
+    margin-top: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
+    
 }
