@@ -6,6 +6,7 @@ import { City } from '../sheared/city';
 import { MatOptionSelectionChange } from '@angular/material';
 import { Car } from '../sheared/car';
 import { CarTableComponent } from './car-table/car-table.component';
+import { Reserva } from '../sheared/reserva';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,6 +23,8 @@ export class HomeComponent implements OnInit {
   maxDateFrom = new Date(2020, 0, 1);
   pickerFrom = this.minDateFrom;
   pickerTo: Date;
+
+  newReserva: Reserva;
   constructor(private restService: HttpRestService) { }
   @ViewChild(CarTableComponent) child: CarTableComponent;
 
@@ -55,5 +58,10 @@ export class HomeComponent implements OnInit {
       this.selectedCountryID = id;
       this.getCities();
     }
+  }
+  sendBooking(event: Reserva) {
+    event.FechaHoraDevolucion = this.pickerTo;
+    event.FechaHoraRetiro = this.pickerFrom;
+    this.restService.addReserva(event);
   }
 }

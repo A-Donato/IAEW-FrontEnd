@@ -1,7 +1,8 @@
-import { Component, Input, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, Output, EventEmitter } from '@angular/core';
 import { Car } from '../../sheared/car';
 import { MatDialog } from '@angular/material';
 import { BookDialogComponent } from '../../book-dialog/book-dialog.component';
+import { Reserva } from '../../sheared/reserva';
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -14,23 +15,39 @@ import { BookDialogComponent } from '../../book-dialog/book-dialog.component';
 
 
 export class CarTableComponent implements OnInit {
-  apellidoYNombreCliente: string;
-  FechaDevolucion: Date;
-  FechaRetiro: Date;
-  idVehiculoCiudad: number;
-  lugarRetiro: number;
-  lugarDevolucion: number;
-  nroDocumentoCliente: number;
+    apellidoYNombreCliente: String;
+    FechaDevolucion: Date;
+    FechaRetiro: Date;
+    idVehiculoCiudad: Number;
+    lugarRetiro: Number;
+    lugarDevolucion: Number;
+    nroDocumentoCliente: Number;
+    reserva: Reserva = {
+      ApellidoNombreCliente: '',
+      FechaHoraDevolucion: undefined,
+      FechaHoraRetiro: undefined,
+      IdVehiculoCiudad: 0,
+      LugarDevolucion: '',
+      LugarRetiro: '',
+      NroDocumentoCliente: 0
+    };
 
+    places = [
+      {id: 0, name: 'Aeropuerto'},
+      {id: 1, name: 'Terminal de Autobus'},
+      {id: 2, name: 'Hotel'}
+     ];
   constructor(private changeDetectorRefs: ChangeDetectorRef, public dialog: MatDialog) { }
   @Input() vehiculosSoap: Car[];
+  @Output() sendBooking = new EventEmitter();
+
   displayedColumns: string[] = ['id', 'modelo', 'marca', 'cantidadPuertas', 'precioDia'
     , 'aireAcon', 'dirAsist', 'tipoCambio', 'disponibles', 'reservar'];
   dataSource = [];
 
   openDialog(): void {
     const dialogRef = this.dialog.open(BookDialogComponent, {
-      width: '500px',
+      width: '1000px',
       data: {
         apellidoYNombreCliente: this.apellidoYNombreCliente,
         FechaDevolucion: this.FechaDevolucion,
@@ -38,13 +55,20 @@ export class CarTableComponent implements OnInit {
         idVehiculoCiudad: this.idVehiculoCiudad,
         lugarRetiro: this.lugarRetiro,
         lugarDevolucion: this.lugarRetiro,
-        nroDocumentoCliente: this.nroDocumentoCliente
+        nroDocumentoCliente: this.nroDocumentoCliente,
+        places: this.places
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+       this.reserva.ApellidoNombreCliente = result.apellidoYNombreCliente;
+       this.reserva.LugarRetiro = result.lugarRetiro;
+       this.reserva.LugarDevolucion = result.lugarDevolucion;
+       this.reserva.NroDocumentoCliente = result.nroDocumentoCliente; // explota
+       this.reserva.IdVehiculoCiudad = this.idVehiculoCiudad; // explota
+       console.log('nroDni ' + result.nroDocumentoCliente + '/ idVehiculociudad ' + result.idVehiculociudad );
+       this.emitBooking(this.reserva);
     });
   }
 
@@ -64,8 +88,13 @@ export class CarTableComponent implements OnInit {
   }
 
   book(element) {
+    this.idVehiculoCiudad = element.idVehiculoCiudad;
     this.openDialog();
-
   }
+
+  emitBooking(res: Reserva) {
+    this.sendBooking.emit(res);
+  }
+
 }
 

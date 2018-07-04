@@ -1,11 +1,33 @@
 <h1 mat-dialog-title>Por favor, complete los siguientes datos</h1>
 <div mat-dialog-content>
-  <p>Marcos puto (?)</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.animal">
+    <input matInput type="text" placeholder="Nombre y Apellido" [(ngModel)]="data.apellidoYNombreCliente">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="data.apellidoYNombreCliente=''">
+      <mat-icon>closee</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Número de documento" [(ngModel)]="data.nroDocumentoCliente">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="data.nroDocumentoCliente=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Seleccionar lugar Retiro" [(ngModel)]="data.lugarRetiro">
+      <mat-option *ngFor="let place of data.places" [value]="place.name">
+        {{place.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Seleccionar lugar Devolución" [(ngModel)]="data.lugarDevolucion">
+      <mat-option *ngFor="let place of data.places" [value]="place.name">
+        {{place.name}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Ke naii</button>
-  <button mat-button [mat-dialog-close]="data.apellidoYNombreCliente" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
 </div>
